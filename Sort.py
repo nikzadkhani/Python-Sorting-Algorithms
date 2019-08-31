@@ -18,7 +18,6 @@ def bubble_sort(ls):
             if ls[j] > ls[j + 1]:
                 swap(ls, j, j + 1)
 
-
 def swap(ls, first_index, second_index):
     """ Helper function that swaps the elements at the given indices
         within the list ls
@@ -50,13 +49,12 @@ def m_sort(ls, temp, start, end):
         Helper function that handles the recursion, so the wrapper doesn't
         have to.
     """
-    if (start <= end):
+    if (start >= end):
         return
 
     middle = (start + end) // 2
 
     m_sort(ls, temp, start, middle)
-    print("poop")
     m_sort(ls, temp, middle + 1, end)
 
     i = start
@@ -72,7 +70,7 @@ def m_sort(ls, temp, start, end):
         if ls[i] < ls[j]:
             temp[k] = ls[i]
             i += 1
-            j += 1
+            k += 1
         else:
             temp[k] = ls[j]
             j += 1
@@ -91,26 +89,106 @@ def m_sort(ls, temp, start, end):
     for i in range(left_start, right_end + 1):
         ls[i] = temp[i]
 
+def insertion_sort(ls):
+    """ Implementation of the Insertion Sort Algorithm
+        Quadratic Move Time: O(n^2), Quadratic Comparison Time: O(n^2)
+        Overall Time: O(n^2) + O(n^2) = O(n^2)
+    """
+    for i in range(1, len(ls)):
+        if ls[i] < ls[i - 1]:
+            to_insert = ls[i]
 
-ls = [random.randint(0,50) for i in range(20)]
+            j = i
+            while True:
+                ls[j] = ls[j - 1]
+                j += -1
+
+                if j <= 0 or to_insert >= ls[j - 1]:
+                    break
+
+            ls[j] = to_insert
+
+def quick_sort(ls):
+    """ Implementation of the Quick Sort Algorithm
+        Move Time: O(n^2), Comparison Time: O(n)
+        Overall Time: O(n^2) + O(n^2) = O(n^2)
+    """
+    q_sort(ls, 0 , len(ls) - 1)
+
+def q_sort(ls, first, last):
+    pivot = ls[(first + last) // 2]
+    i = first
+    j = last
+
+    while True:
+        while ls[i] < pivot:
+            i += 1
+        while ls[j] > pivot:
+            j += -1
+
+        if i < j:
+            swap(ls, i, j)
+            i += 1
+            j += -1
+        else:
+            break
+
+    if first < j:
+        q_sort(ls, first, j)
+    if last > j + 1:
+        q_sort(ls, j + 1, last)
+
+def count_sort(ls):
+    """ An implementation of one version of the count sort Algorithm
+        k is the range of values from the max to the min
+        Additional Memory: O(k), Overall Time: O(n + k)
+    """
+    min_val = min(ls)
+    max_val = max(ls)
+    counts = [0] * (max_val - min_val + 1)
+
+    for i in ls:
+        counts[i - min_val] += 1
+
+    j = 0
+    for i in range(len(counts)):
+        while counts[i] != 0:
+            ls[j] = i + min_val
+            j += 1
+            counts[i] += -1
+
+
+
+ls = [random.randint(-20,20) for i in range(10)]
 print(ls)
 
-print('\nSelection Sort:')
-selection_sort(ls)
+count_sort(ls)
 print(ls)
 
-print('\nShuffled Again:')
-random.shuffle(ls)
-print(ls)
-
-print('\nBubble Sort:')
-bubble_sort(ls)
-print(ls)
-
-print('\nShuffled Again:')
-random.shuffle(ls)
-print(ls)
-
-print('\nMerge Sort:')
-merge_sort(ls)
-print(ls)
+# print('\nSelection Sort:')
+# selection_sort(ls)
+# print(ls)
+#
+# random.shuffle(ls)
+#
+# print('\nBubble Sort:')
+# bubble_sort(ls)
+# print(ls)
+#
+# random.shuffle(ls)
+#
+# print('\nMerge Sort:')
+# merge_sort(ls)
+# print(ls)
+#
+# random.shuffle(ls)
+#
+# print('\nInsertion Sort:')
+# insertion_sort(ls)
+# print(ls)
+#
+# random.shuffle(ls)
+#
+# print('\nQuick Sort:')
+# insertion_sort(ls)
+# print(ls)
