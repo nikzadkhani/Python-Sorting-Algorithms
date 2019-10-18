@@ -156,39 +156,3 @@ def count_sort(ls):
             ls[j] = i + min_val
             j += 1
             counts[i] += -1
-
-
-
-ls = [random.randint(-20,20) for i in range(10)]
-print(ls)
-
-count_sort(ls)
-print(ls)
-
-# print('\nSelection Sort:')
-# selection_sort(ls)
-# print(ls)
-#
-# random.shuffle(ls)
-#
-# print('\nBubble Sort:')
-# bubble_sort(ls)
-# print(ls)
-#
-# random.shuffle(ls)
-#
-# print('\nMerge Sort:')
-# merge_sort(ls)
-# print(ls)
-#
-# random.shuffle(ls)
-#
-# print('\nInsertion Sort:')
-# insertion_sort(ls)
-# print(ls)
-#
-# random.shuffle(ls)
-#
-# print('\nQuick Sort:')
-# insertion_sort(ls)
-# print(ls)
